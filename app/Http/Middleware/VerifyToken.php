@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Helpers\ApiResponse;
+use App\Http\Controllers\Helpers\ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VerifyToken
 {
-   
+
     public function handle(Request $request, Closure $next): Response
     {
         try {

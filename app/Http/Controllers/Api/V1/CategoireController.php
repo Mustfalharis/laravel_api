@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ApiResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreUpdateCategoire;
 use App\Http\Resources\V1\CategoireCollection;
 use App\Http\Resources\V1\CategoireResource;
 use App\Models\Categorie;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
 
 class CategoireController extends Controller
 {

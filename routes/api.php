@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CategoireController;
+use App\Http\Controllers\Api\V1\ItemController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +32,20 @@ Route::controller(AuthController::class)->group(function () {
 // Route::post('categoire',[CategoireController::class,'store'])->middleware("sanitizeInput");
 // Route::put('categoire/{id}',[CategoireController::class,'update'])->middleware("sanitizeInput");
 
+
 Route::prefix('v1')
     ->namespace('App\Http\Controllers\Api\V1')
     ->middleware("VerifyToken")
     ->group(function () {
+        /// categoires
         Route::get("categoire", [CategoireController::class, 'index']);
         Route::get("categoire/{id}", [CategoireController::class, 'show']);
+
+
+        Route::get("item",[ItemController::class,'index']);
+        Route::get("item/{id}", [ItemController::class, 'show']);
+        Route::post('item',[ItemController::class,'store'])->middleware("sanitizeInput");
+
+
 
     });
