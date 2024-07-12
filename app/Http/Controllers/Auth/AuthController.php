@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Auth\Controllers;
+namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Helpers\ApiResponse;
+use App\Http\Controllers\Helpers\ApiResponse;
 use App\Http\Resources\LoginResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -87,7 +87,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return ApiResponse::Message(true,"Successfully logged out",200);
+        return ApiResponse::Message("Successfully logged out",true,200);
 
     }
 

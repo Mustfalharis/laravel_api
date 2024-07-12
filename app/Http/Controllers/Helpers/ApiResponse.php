@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Helpers;
-
+namespace App\Http\Controllers\Helpers;
 class ApiResponse
 {
-    public static function success($listData = [], $status = true, $statusCode = 200)
+    public static function success($data, $status = true, $statusCode = 200)
     {
         $data = [
             "status" => $status,
-            "data" => $listData
+            "data" => $data
         ];
         return response()->json($data, $statusCode);
     }
