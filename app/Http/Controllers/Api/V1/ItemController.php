@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ApiResponse;
-use App\Http\Requests\StoreItemRequest;
-use App\Http\Requests\V1\StoreItemRequest as V1StoreItemRequest;
+use App\Http\Requests\V1\StoreItemRequest;
 use App\Http\Resources\V1\ItemResource;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -27,25 +26,36 @@ class ItemController extends Controller
         }
     }
 
-    public function store(V1StoreItemRequest $request)
+    public function store(StoreItemRequest $request)
     {
         try {
-             Item::create($request->all());
+            $image= null;
+            $imageDetails= null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = 'image_' . time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('images/image', $imageName, 'public');
-                $validatedData['image'] = $imagePath;
+                $imageName = '' . time() . '.' . $image->getClientOriginalName();
+                $image->storeAs('images/image', $imageName, 'public');
             }
             if ($request->hasFile('imageDetails')) {
                 $imageDetails = $request->file('imageDetails');
-                $imageDetailsName = 'image_details_' . time() . '.' . $imageDetails->getClientOriginalExtension();
-                $imageDetailsPath = $imageDetails->storeAs('images/imageDetails', $imageDetailsName, 'public');
-                $validatedData['imageDetails'] = $imageDetailsPath;
+                $imageDetailsName = '' . time() . '.' . $imageDetails->getClientOriginalName();
+                $imageDetails->storeAs('images/imageDetails', $imageDetailsName, 'public');
             }
+            $item = new Item();
+            $item->fill($request->all());
+            $item->image = $imageName;
+            $item->image_details = $imageDetailsName;
+            $item->save();
             return ApiResponse::Message("Add Items successful", true, 200);
         } catch (\Exception $e) {
             return ApiResponse::error($e->getMessage(), 500);
         }
     }
+
+
+
+
+
+
+    
 }
